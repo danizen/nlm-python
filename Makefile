@@ -24,10 +24,12 @@ upstream/$(PYTHON_SIG):
 	curl -L -o $@ $(PYTHON_SIG_URL)
 
 setup:
-	@echo "Not yet implemented"; exit 1
+	rpmdev-setuptree
+	cp nlm-python.spec ~/rpmbuild/SPECS
+	cp upstream/$(PYTHON_FILE) ~/rpmbuild/SOURCES
 
 rpm:
-	@echo "Not yet implemented"; exit 1
+	rpmbuild -bb ~/rpmbuild/SPECS/nlm-python.spec
 
 clean:
 	-rm -rf upstream
