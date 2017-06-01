@@ -1,26 +1,32 @@
-Name:					 nlm-python-shared
-Version:       3.4.6
-Release:       1%{?dist}
-Summary:       Summary goes here
-Group:         Group/goes/here
-License:       GPL
-URL:           Not required
-Vendor:        Company you work for, probably
-Distribution:  Group for specific distribution
+%define _upvers 3.4.6
 
-Source:        %{name}-%{version}.tgz
-BuildRoot:     %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
+Name:					 nlm-python
+Version:       %{upvers}
+Release:       1%{?dist}
+Summary:       A built version of Python
+License:       Python Software License (PSF)
+Vendor:        U.S. National Library of Medicine
+
+Source:        Python-%{version}.tgz
 BuildRequires: /bin/rm, /bin/mkdir, /bin/cp
 Requires:      /bin/bash, /bin/date
 BuildArch:     noarch
 
 %description
-Description of the package goes here.
+A build version of Python
 
 %prep
 %setup -q
 
 %build
+%configure
+ --prefix /usr/nlm/apps/python \
+ --enable-shared \
+ --enable-ipv6 \
+ --with-computed-gotos=yes \
+ --with-system-ffi \
+ --with-system-expat \
+ --with-loadable-sqlite-extensions
 
 %install
 %{__rm} -rf %{buildroot}
